@@ -40,10 +40,10 @@ deploy:
 	@forge script script/DeployBasicNFT.s.sol:DeployBasicNFT $(NETWORK_ARGS)
 
 mint:
-	@forge script script/Interactions.s.sol:MintBasicNft ${NETWORK_ARGS}
+	@forge script script/Interactions.s.sol:MintBasicNFT ${NETWORK_ARGS}
 
 deployMood:
-	@forge script script/DeployMoodNft.s.sol:DeployMoodNft $(NETWORK_ARGS)
+	@forge script script/DeployMoodNFT.s.sol:DeployMoodNFT $(NETWORK_ARGS)
 
 mintMoodNft:
 	@forge script script/Interactions.s.sol:MintMoodNft $(NETWORK_ARGS)

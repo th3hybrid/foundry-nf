@@ -4,6 +4,7 @@ pragma solidity ^0.8.18;
 
 import {Script} from "forge-std/Script.sol";
 import {BasicNFT} from "src/BasicNFT.sol";
+import {MoodNFT} from "src/MoodNFT.sol";
 import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 
 contract MintBasicNFT is Script {
@@ -12,7 +13,7 @@ contract MintBasicNFT is Script {
 
     function run() external {
         address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
-            "BasicNft",
+            "BasicNFT",
             block.chainid
         );
         mintNFTOnContract(mostRecentlyDeployed);
@@ -26,5 +27,35 @@ contract MintBasicNFT is Script {
 }
 
 contract MintMoodNft is Script {
-    function run() external {}
+    function run() external {
+        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
+            "BasicNFT",
+            block.chainid
+        );
+        mintNFTOnContract(mostRecentlyDeployed);
+    }
+
+    function mintNFTOnContract(address contractAddress) public {
+        vm.startBroadcast();
+        MoodNFT(contractAddress).mintNFT();
+        vm.stopBroadcast();
+    }
+}
+
+contract FlipMoodNft is Script {
+    uint256 public constant TOKEN_ID_TO_FLIP = 0;
+
+    function run() external {
+        address mostRecentlyDeployed = DevOpsTools.get_most_recent_deployment(
+            "BasicNFT",
+            block.chainid
+        );
+        flipNftMoodOnContract(mostRecentlyDeployed);
+    }
+
+    function flipNftMoodOnContract(address contractAddress) public {
+        vm.startBroadcast();
+        MoodNFT(contractAddress).flipMood(TOKEN_ID_TO_FLIP);
+        vm.stopBroadcast();
+    }
 }
